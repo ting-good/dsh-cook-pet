@@ -1,12 +1,12 @@
 # 照照 · dsh-cook-pet 🍳
 
+**中文** | [English](README.en.md)
+
 > 一只住在 [DeepSeek Harness](https://www.deepseek.com/harness/) 里的小厨娘桌宠。
 > 她叫**照照** —— 没活干时握着锅铲站着晃；你派活给她就**颠锅炒菜**；一轮任务做完，
 > 她**端着一盘热菜**来报喜；**需要你批准或回话时，她托着腮歪头等你**；戳一下还会 wink 或转个圈。
 
 ![照照：透明背景，直接浮在桌面上](docs/images/zhaozhao-240.png)
-
-**中文** | [English](README.en.md)
 
 **四种状态（动图，就是桌面上的实际动作）：**
 

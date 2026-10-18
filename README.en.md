@@ -1,5 +1,7 @@
 # Zhaozhao · dsh-cook-pet 🍳
 
+[中文](README.md) | **English**
+
 > A little chef-girl desktop pet living inside [DeepSeek Harness](https://www.deepseek.com/harness/).
 > Her name is **Zhaozhao** (照照). When idle she stands around holding a spatula; give her work and she
 > **tosses a wok**; when a turn finishes she **brings you a plate of food**; when she
@@ -7,8 +9,6 @@
 > she'll wink or spin.
 
 ![Zhaozhao, floating on your desktop with a transparent background](docs/images/zhaozhao-240.png)
-
-[中文](README.md) | **English**
 
 **Four states (animated — these are the actual on-screen motions):**
 
