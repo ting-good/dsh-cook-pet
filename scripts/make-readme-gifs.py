@@ -36,6 +36,11 @@ FPS = 10
 SECONDS = 2.2    # 每张动图时长；太长会让体积暴涨
 COLORS = 96      # 调色板色数：再高对 Q 版色块收益很小，体积却线性涨
 
+# 封面图（真透明 PNG，240px 宽）
+HERO_NAME = "zhaozhao-240.png"
+HERO_W = 240
+HERO_FRAME = 18  # 取待机段的这一帧：姿态舒展、不重叠
+
 # 各段从第几秒开始截（避开片头的静止/过渡帧，直接给"有动作"的一段）
 START = {
     "idle": 0.5,
@@ -77,16 +82,51 @@ def make_gif(name):
     return os.path.getsize(dst)
 
 
+def make_hero():
+    """封面图：从待机素材取一帧，缩到 240px 宽。
+
+    必须保留**真 alpha**：GitHub 按原始像素渲染，1028px 会铺满整页；
+    而合成背景（像 GIF 那样）会在浅色上留一块色块，透明 PNG 在明暗主题下都干净。
+
+    文件名带尺寸后缀（zhaozhao-240.png）而不是叫 hero.png —— 换图时 URL 必须变，
+    否则浏览器与 GitHub 的 camo 图片代理会继续显示旧图（这个坑踩过）。
+    """
+    from PIL import Image
+
+    src = os.path.join(SRC, "idle.webm")
+    dst = os.path.join(OUT, HERO_NAME)
+    tmp = os.path.join(os.environ.get("TEMP", "."), "_dsh_cook_pet_hero.png")
+    r = subprocess.run(
+        [
+            get_ffmpeg_exe(), "-y", "-hide_banner", "-loglevel", "error",
+            "-c:v", "libvpx-vp9", "-i", src,
+            "-vf", f"select=eq(n\\,{HERO_FRAME}),scale={HERO_W}:-1:flags=lanczos",
+            "-frames:v", "1", "-pix_fmt", "rgba", tmp,
+        ],
+        capture_output=True, text=True, encoding="utf-8", errors="replace",
+    )
+    if r.returncode != 0:
+        print("  hero 失败:", (r.stderr or "").strip()[:300])
+        return None
+    Image.open(tmp).save(dst, optimize=True)
+    return os.path.getsize(dst)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
-    print("生成动图 GIF（%dpx / %dfps / %.1fs）" % (W, FPS, SECONDS))
+    print("生成封面图（%dpx 宽，真 alpha）" % HERO_W)
+    s = make_hero()
+    if s:
+        print("  ✓ %-16s %6.1f KB" % (HERO_NAME, s / 1024))
+
+    print("\n生成动图 GIF（%dpx / %dfps / %.1fs）" % (W, FPS, SECONDS))
     total = 0
     for name in ("idle", "cook", "serve", "think", "wink", "spin"):
         size = make_gif(name)
         if size:
             total += size
             print("  ✓ %-6s %6.1f KB" % (name + ".gif", size / 1024))
-    print("\n合计 %.2f MB" % (total / 1048576))
+    print("\n动图合计 %.2f MB" % (total / 1048576))
     return 0
 
 

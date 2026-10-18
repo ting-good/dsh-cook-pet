@@ -6,7 +6,7 @@
 > **needs your approval or an answer, she props her chin on her hand and waits**; poke her and
 > she'll wink or spin.
 
-![Zhaozhao, floating on your desktop with a transparent background](docs/images/hero.png)
+![Zhaozhao, floating on your desktop with a transparent background](docs/images/zhaozhao-240.png)
 
 [中文](README.md) | **English**
 
