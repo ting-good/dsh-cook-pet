@@ -108,14 +108,14 @@ dsh plugin --profile desktop add file:/绝对路径/dsh-cook-pet
 dsh plugin --profile desktop remove dsh-cook-pet
 ```
 
-卸载后 overlay 节点、定时器、事件监听全部回收（有测试守着这条）。
+卸载后 Electron 进程、定时器、事件监听全部回收（有测试守着这条）。
 
 ---
 
 ## 🎨 她是怎么做出来的
 
 角色与全部 6 段动作都是 **AI 生成**（Q 版日系画风，绿幕/黑底源），
-再经一条可复现的素材管线转成浏览器能用的**透明视频**。
+再经一条可复现的素材管线转成带 alpha 的**透明视频**。
 
 | 步骤 | 做法 | 为什么 |
 | --- | --- | --- |
@@ -176,7 +176,7 @@ npm run assets:check  # 验收：四角透明 / 暗部未误抠 / 6 段尺寸一
 | 裁切框（脚本顶部 `CROP`） | `runtime/electron-helper/renderer.js` 顶部的命中框比例常量 |
 | 素材内容变了 | `renderer.js` 里的 `ASSET_VERSION` +1（否则桌面窗可能读到旧缓存） |
 
-**第 4 步：重启 DSH 并刷新页面**
+**第 4 步：重启 DSH**
 
 桌面窗在启动时就把素材读进内存了，所以换素材后**必须重启**才完全生效。
 
@@ -227,9 +227,8 @@ dsh-cook-pet/
 | 项 | 状态 |
 | --- | --- |
 | DSH | `0.2.1-rc.1` 实测通过；`0.2.0-rc.1` / `0.2.0-rc.2` 契约一致 |
-| 浏览器 | Chrome / Edge（需 VP9 alpha 支持；**Safari 不支持**） |
 | 桌面窗 | Windows 实测通过（Electron 43，`transparent + alwaysOnTop`）；macOS/Linux 未实测 |
-| Node | ≥ 22.12（宿主半侧） |
+| Node | ≥ 22.12 |
 
 ---
 
