@@ -10,9 +10,12 @@
 
 [中文](README.md) | **English**
 
-<p align="center">
-  <img src="docs/images/states-dark.png" width="880" alt="Four states: idle / cooking / serving / waiting">
-</p>
+**Four states (animated — these are the actual on-screen motions):**
+
+| Idle | Cooking | Serving | Waiting |
+| :---: | :---: | :---: | :---: |
+| ![idle](docs/images/idle.gif) | ![cooking](docs/images/cook.gif) | ![serving](docs/images/serve.gif) | ![waiting](docs/images/think.gif) |
+| stands and sways | tosses the wok | brings a plate | tilts her head, waits |
 
 ---
 
@@ -35,10 +38,6 @@
 > "done" signal.
 
 ### 🤔 What "waiting" actually means
-
-<p align="center">
-  <img src="docs/images/think.png" width="260" alt="Waiting: chin on hand, head tilted">
-</p>
 
 It is not a vague "busy" state. It maps to exactly **two kinds of real waiting**:
 
@@ -63,10 +62,9 @@ in the waiting state.
 | **Drag** | move her; the position is remembered across reloads |
 | **Right-click** | cycle size: 110 / 138 / 190 / 260 px (also remembered) |
 
-<p align="center">
-  <img src="docs/images/wink.png" width="220" alt="wink">
-  <img src="docs/images/spin.png" width="220" alt="spin">
-</p>
+| Click · wink | Click · spin |
+| :---: | :---: |
+| ![wink](docs/images/wink.gif) | ![spin](docs/images/spin.gif) |
 
 ---
 

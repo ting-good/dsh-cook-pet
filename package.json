@@ -60,6 +60,7 @@
     "test": "node --test lib/state.test.js lib/waiting.test.js lib/host.test.js lib/desktop.test.js lib/desktop-helper.test.js",
     "assets": "python scripts/build-assets.py",
     "assets:check": "python scripts/check-assets.py",
+    "readme:gifs": "python scripts/make-readme-gifs.py",
     "pack:check": "node scripts/prepack-check.js",
     "electron": "node scripts/ensure-electron.mjs",
     "deploy": "node scripts/deploy.mjs",

@@ -8,7 +8,12 @@
 
 **中文** | [English](README.en.md)
 
-![四种状态：待机 / 炒菜 / 上菜 / 托腮](docs/images/states-dark.png)
+**四种状态（动图，就是桌面上的实际动作）：**
+
+| 待机 | 炒菜 | 上菜 | 托腮 |
+| :---: | :---: | :---: | :---: |
+| ![待机](docs/images/idle.gif) | ![炒菜](docs/images/cook.gif) | ![上菜](docs/images/serve.gif) | ![托腮](docs/images/think.gif) |
+| 站着轻轻晃 | 颠锅翻炒 | 端盘报喜 | 歪头等你 |
 
 ---
 
@@ -30,8 +35,6 @@
 > 她只会安静地回到待机 —— 不会给你一个假的「完成」信号。
 
 ### 🤔 「托腮」到底在等什么
-
-![托腮：手背抵着下巴，歪头等你](docs/images/think.png)
 
 托腮不是模糊的"忙碌"态，它只对应**两类真实等待**：
 
@@ -55,7 +58,9 @@
 | **拖拽** | 换位置，松手记住（刷新不丢） |
 | **右键** | 在 110 / 138 / 190 / 260 px 四档间切换大小（同样记住） |
 
-![wink](docs/images/wink.png) ![转圈](docs/images/spin.png)
+| 点一下 · wink | 点一下 · 转圈 |
+| :---: | :---: |
+| ![wink](docs/images/wink.gif) | ![转圈](docs/images/spin.gif) |
 
 ---
 
