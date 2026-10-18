@@ -1,0 +1,41 @@
+# ---- Node / pnpm ----
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+.npmrc
+
+# ---- 打包产物 ----
+*.tgz
+dist/
+
+# ---- 素材源（几十 MB 的原始 mp4，绝不入库；发布包里也不含）----
+# 运行时只需要 assets/pet/*.webm（已生成的透明动画）。
+# 想自己重新生成素材，按 README「想换成自己的角色」把视频放回这些目录即可。
+assets/cook/
+assets/cook-已抠图/
+assets-src/
+
+# ---- Python 字节码 ----
+__pycache__/
+*.pyc
+
+# ---- 开发期临时目录（素材分析、预览图、备份）----
+_work/
+_leadwork/
+*.log
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 我本机的实测与备份（不属于项目代码）----
+docs/previews/
+docs/verify/
+acl-reports/
+
+# ---- 内部取证草稿：写得太乱，暂不公开发布 ----
+docs/契约-等待确认.md

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>dsh-cook-pet</title>
+    <style>
+      /* 透明背景：窗口本身透明，页面也不能有底色，否则会盖住桌面。
+         透明抠图素材直接浮在桌面上 —— 这里绝不能出现卡片底、圆角或边框。 */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        overflow: hidden;
+        user-select: none;
+        -webkit-user-select: none;
+        cursor: default;
+      }
+
+      /* 画面区：#stage 内缩 --pet-margin，四周留出**真正透明**的拖拽余量。
+         窗口比可见画面大一圈，但多出来的部分透明 —— 既给拖拽缓冲，又不多出一圈白边。
+
+         人物直接用 alpha 通道浮起：不加卡片底、不加圆角、不做 overflow 裁切。
+         只留一层 drop-shadow 让她"贴地"：filter:drop-shadow 跟随视频 alpha 轮廓，
+         不会像 box-shadow 那样在人物周围画出一个矩形。
+
+         ⚠️ 踩过的坑：BrowserWindow 用了 useContentSize:true，window 的 width/height
+         就是**内容区**尺寸。最初把余量算进 window 尺寸、而 #stage 用 inset:0 铺满，
+         余量就跑到了视频内部 —— 卡片底跟着铺满整窗，肉眼看到就是"画面上有一圈白边"。 */
+      #stage {
+        position: absolute;
+        inset: var(--pet-margin, 0px);
+        filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.34));
+      }
+      .pet-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+        pointer-events: none;
+      }
+      .pet-video.is-front {
+        opacity: 1;
+      }
+
+      /* 命中层：覆盖画面区 —— 拖拽时需能收到指针事件。
+         光标一旦移出画面区，拖拽靠 pointer capture + document 级 pointermove 继续，
+         主进程在 busy 期间也绝不翻回穿透（见 pointer-target.js 的说明）。 */
+      #hit {
+        position: absolute;
+        inset: 0;
+        background: transparent;
+      }
+
+      /* 状态角标：cook 炒菜中 / serve 上菜啦 / think 等你回话；idle 隐藏 */
+      #badge {
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        font: 11px/1 system-ui, sans-serif;
+        padding: 3px 6px;
+        border-radius: 9px;
+        background: rgba(0, 0, 0, 0.45);
+        color: #fff;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+      }
+      #badge.is-on {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <video id="vA" class="pet-video is-front" muted playsinline autoplay loop preload="auto"></video>
+      <video id="vB" class="pet-video" muted playsinline autoplay loop preload="auto"></video>
+      <div id="badge"></div>
+      <div id="hit"></div>
+    </div>
+    <!-- 经典 script：file:// 下 Chromium 会拦 ES module（origin null 被 CORS 阻），
+         所以这里绝不能写 type="module" -->
+    <script src="./renderer.js"></script>
+  </body>
+</html>

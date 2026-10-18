@@ -1,0 +1,98 @@
+{
+  "generator": "build_pet_assets_v4 (nearest-neighbour edge extend + correct RGBA)",
+  "crop": {
+    "x0": 280,
+    "y0": 0,
+    "x1": 1003,
+    "y1": 720
+  },
+  "output": {
+    "w": 514,
+    "h": 512
+  },
+  "clips": {
+    "idle": {
+      "src_frames": 302,
+      "size_bytes": 1309432,
+      "alpha_coverage": 17.38,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "cook": {
+      "src_frames": 302,
+      "src_fps": 30,
+      "source": "颠锅frames_抠图/（用户提供的 PNG 序列，真 alpha，原样使用不做任何处理）",
+      "size_bytes": 3795560,
+      "alpha_coverage": 37.4,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "fidelity_vs_source": {
+        "color_mae": 3.56,
+        "body_coverage_src_pct": 37.7,
+        "body_coverage_out_pct": 37.4
+      },
+      "note": "30fps 与其它 5 段一致；alpha 直接来自 PNG 序列（二值边缘，未做羽化/外扩）"
+    },
+    "serve": {
+      "src_frames": 137,
+      "src_fps": 30,
+      "source": "上菜frames抠图/（用户提供的 PNG 序列，删除了 9~13 号 5 帧）",
+      "size_bytes": 823640,
+      "alpha_coverage": 30.0,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "smoke_removal": {
+        "rule": "逐帧求亮部顶边 hatTop（亮度>=150），向上留 3px 容差，只删除该线以上的暗像素（亮度<150）",
+        "avg_removed_dark_px_per_frame": 532,
+        "avg_protected_bright_px_per_frame": 0,
+        "note": "受保护的亮像素为 0 说明切割线以上没有帽子像素，零误伤"
+      },
+      "note": "1024x576 源 → 按 0.8 换算裁切 (224,0,802,576) → 514x512；时长 4.57s（删帧后）"
+    },
+    "think": {
+      "src_frames": 152,
+      "size_bytes": 597023,
+      "alpha_coverage": 17.78,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "wink": {
+      "src_frames": 83,
+      "size_bytes": 382242,
+      "alpha_coverage": 17.63,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "spin": {
+      "src_frames": 152,
+      "size_bytes": 1157209,
+      "alpha_coverage": 19.21,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "name": "dsh-cook-pet",
+  "version": "1.0.0",
+  "description": "住在 DeepSeek Harness 里的小厨娘「照照」桌宠：空闲时握着锅铲站着，你派活她就颠锅炒菜，一轮任务做完端着一盘热菜来报喜，需要你批准或回答时托着腮等你，戳一下还会 wink 或转圈。透明抠图素材，以独立置顶窗浮在所有应用之上。",
+  "icon": "assets/icon.png",
+  "homepage": "https://github.com/ting-good/dsh-cook-pet#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ting-good/dsh-cook-pet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ting-good/dsh-cook-pet/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "desktop-pet",
+    "pet",
+    "floating-widget",
+    "cordis"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "_comment": [
+    "=============== dsh-cook-pet 包清单说明 ===============",
+    "type/main —— 宿主入口 lib/index.js，纯 ESM 的 Cordis 插件（name/inject/apply）；",
+    "             本包不打包：源码即产物，DSH 直接加载，装完即可用，无需构建步骤。",
+    "只有宿主半侧，**没有浏览器半侧**：照照只以「独立 Electron 置顶窗」的形式存在，",
+    "             浮在所有应用之上。因此这里**不声明 dsh.client、也不导出 ./client** ——",
+    "             声明了却没有对应文件，DSH 的模块系统会去加载 /plugins/<name>/client.js 并失败。",
+    "icon —— 插件管理页图标（PNG，<=256KiB，realpath 后须留在包目录内）。",
+    "dsh.bundle.patch —— 声明本包是 bundle，patch 文件 cordis.patch.yml，安装后自动进层栈。",
+    "dsh.compatibility.dshReleases —— 逐项声明完整版本；这些行都是在对应 DSH 版本上实测通过的。",
+    "files —— npm publish 只发这些目录：lib（宿主代码）、runtime/electron-helper（桌面窗）、",
+    "         assets/pet（6 段透明 webm）+ assets/icon.png、scripts/ensure-electron.mjs、cordis.patch.yml。",
+    "         ⚠️ assets/cook-已抠图 是**素材源**（几十 MB 的 mp4），绝不随包发布。",
+    "================"
+  ],
+  "files": [
+    "lib",
+    "runtime/electron-helper",
+    "assets/pet",
+    "assets/icon.png",
+    "scripts/ensure-electron.mjs",
+    "cordis.patch.yml",
+    "README.md",
+    "README.en.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test lib/state.test.js lib/waiting.test.js lib/host.test.js lib/desktop.test.js lib/desktop-helper.test.js",
+    "assets": "python scripts/build-assets.py",
+    "assets:check": "python scripts/check-assets.py",
+    "pack:check": "node scripts/prepack-check.js",
+    "electron": "node scripts/ensure-electron.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "deploy:check": "node scripts/deploy.mjs --check",
+    "verify": "node scripts/verify-desktop.mjs",
+    "prepack": "node scripts/prepack-check.js"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "dsh": ">=0.2.0-rc.1"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "compatibility": {
+      "dshReleases": {
+        "0.2.0-rc.1": "compatible",
+        "0.2.0-rc.2": "compatible",
+        "0.2.1-rc.1": "compatible"
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "dsh-cook-pet-electron-helper",
+  "version": "0.1.0",
+  "private": true,
+  "description": "dsh-cook-pet 桌面 helper：透明置顶窗，让桌宠浮在其它应用之上",
+  "main": "main.js"
+}
