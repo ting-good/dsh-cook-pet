@@ -66,20 +66,30 @@
 
 ## 📦 安装
 
-> 需要 **DSH ≥ 0.2.0**（在 0.2.1-rc.1 上实测通过）。
+> 需要 **DSH ≥ 0.2.0**（在 `0.2.0-rc.1` ~ `0.2.1-rc.2` 上实测通过）。
 
-### ⚡ 一句命令安装（推荐）
+### ⚡ 一句命令安装（推荐，走 npm）
+
+```bash
+dsh plugin --profile desktop add dsh-cook-pet
+```
+
+把 `desktop` 换成你实际使用的 profile 名（`dsh web` 用户一般是 `web`），然后**重启 DSH**。
+
+- ✅ **不需要 git**：pnpm 直接从 npm registry 拉包，机器上有没有 git 都不影响
+- ✅ 国内用户若配了 `registry.npmmirror.com` 镜像，会自动走镜像加速
+- ✅ 锁定版本：`dsh plugin --profile desktop add dsh-cook-pet@1.0.1`
+- 本项目是**纯 JavaScript、无构建步骤**，也没有安装时脚本，所以不需要任何构建授权
+
+### 备选：从 GitHub 安装
 
 ```bash
 dsh plugin --profile desktop add github:ting-good/dsh-cook-pet
 ```
 
-把 `desktop` 换成你实际使用的 profile 名（`dsh web` 用户一般是 `web`），然后**重启 DSH**。
+> 注意：这一路需要机器上**装有 git** 且能连 `github.com`（`git` 解析器要跑 `git ls-remote`）。
 
-这条命令走的是 git 安装 —— 本项目是**纯 JavaScript、无构建步骤**，
-所以不需要 `prepare` 构建授权，装完即可用。
-
-### 🧑‍💻 从本地目录安装（开发者）
+### 🧑‍💻 从本地目录安装（开发者 / 离线）
 
 ```bash
 # dsh 不在 PATH 时用全路径，例如 Windows 桌面版：

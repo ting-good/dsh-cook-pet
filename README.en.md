@@ -70,20 +70,31 @@ in the waiting state.
 
 ## 📦 Install
 
-> Requires **DSH ≥ 0.2.0** (tested on 0.2.1-rc.1).
+> Requires **DSH ≥ 0.2.0** (tested on `0.2.0-rc.1` through `0.2.1-rc.2`).
 
-### ⚡ One command (recommended)
+### ⚡ One command (recommended, via npm)
+
+```bash
+dsh plugin --profile desktop add dsh-cook-pet
+```
+
+Replace `desktop` with the profile you actually boot (`web` if you run `dsh web`). Then **restart DSH**.
+
+- ✅ **No git needed**: pnpm pulls the tarball straight from the npm registry
+- ✅ Users with a `registry.npmmirror.com` mirror configured automatically get the faster path
+- ✅ Pin a version: `dsh plugin --profile desktop add dsh-cook-pet@1.0.1`
+- The project is **plain JavaScript with no build step** and has no install scripts, so no build authorization is required
+
+### Alternative: install from GitHub
 
 ```bash
 dsh plugin --profile desktop add github:ting-good/dsh-cook-pet
 ```
 
-Replace `desktop` with the profile you actually boot (`web` if you run `dsh web`). Then **restart DSH**.
+> Note: this route needs **git installed** and a working connection to `github.com`
+> (the git resolver runs `git ls-remote`).
 
-This installs from git. The project is **plain JavaScript with no build step**, so no `prepare`
-build authorization is needed — it works right after install.
-
-### 🧑‍💻 From a local directory (developers)
+### 🧑‍💻 From a local directory (developers / offline)
 
 ```bash
 # If dsh isn't on PATH, use the full path, e.g. Windows desktop build:

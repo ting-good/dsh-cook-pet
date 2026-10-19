@@ -1,6 +1,6 @@
 {
   "name": "dsh-cook-pet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "住在 DeepSeek Harness 里的小厨娘「照照」桌宠：空闲时握着锅铲站着，你派活她就颠锅炒菜，一轮任务做完端着一盘热菜来报喜，需要你批准或回答时托着腮等你，戳一下还会 wink 或转圈。透明抠图素材，以独立置顶窗浮在所有应用之上。",
   "icon": "assets/icon.png",
   "homepage": "https://github.com/ting-good/dsh-cook-pet#readme",
@@ -46,7 +46,10 @@
     "================"
   ],
   "files": [
-    "lib",
+    "lib/index.js",
+    "lib/state.js",
+    "lib/waiting.js",
+    "lib/desktop.js",
     "runtime/electron-helper",
     "assets/pet",
     "assets/icon.png",

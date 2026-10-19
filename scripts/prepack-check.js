@@ -173,11 +173,17 @@ if (deps.length === 0 && peer.length === 0) ok('无运行时依赖');
 // ---------------------------------------------------------------------------
 // 8. files 白名单覆盖运行时必需文件
 // ---------------------------------------------------------------------------
+// 版本 1.0.1 起 files 用**精确文件清单**（lib 下只列 4 个运行时源文件），
+// 这样 npm pack 不会把测试文件也发出去（files 白名单生效时 .npmignore 会被忽略，
+// 所以想排除测试只能精确列文件）。因此这里也必须精确校验，不能再要求目录。
 const files = Array.isArray(pkg.files) ? pkg.files : [];
 if (files.length === 0) fail('package.json 缺少 files 白名单（npm publish 会把整个仓库发出去）');
 else {
   const required = [
-    'lib',
+    'lib/index.js',
+    'lib/state.js',
+    'lib/waiting.js',
+    'lib/desktop.js',
     'runtime/electron-helper',
     'assets/pet',
     'assets/icon.png',
@@ -186,6 +192,10 @@ else {
   ];
   for (const r of required) {
     if (!files.includes(r)) fail(`files 白名单缺少 ${r}（发布出去会缺文件）`);
+  }
+  // 反方向：不允许把测试文件发出去（发布包应该是"装了就能跑"的最小产物）
+  for (const f of files) {
+    if (/test\.(js|mjs)$/.test(f)) fail(`files 白名单不应包含测试文件：${f}`);
   }
   ok('files 白名单覆盖运行时必需文件');
 }
