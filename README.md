@@ -92,14 +92,26 @@ dsh plugin --profile desktop add file:/绝对路径/dsh-cook-pet
 「浮在其它应用之上」那个窗口由独立 Electron 进程渲染，需要一份 Electron 运行时
 （DSH 宿主本身是纯 Node，不带 Electron 二进制）。
 
-**你不需要做任何事**：首次缺运行时的时候，插件会在**后台自动下载**（约 100 MB，只做一次，
-走 npmmirror 镜像），下载完成后桌面窗会自动出现。下载期间 DSH 完全正常，只是还没看到她。
+**你不需要做任何事**：首次缺运行时的时候，插件会在**后台自动下载**（约 140 MB，只做一次），
+下载完成后桌面窗会自动出现。下载期间 DSH 完全正常，只是还没看到她。
+
+下载本身是**打不死的**：
+
+| 能力 | 说明 |
+| --- | --- |
+| 多镜像回退 | npmmirror → registry.npmmirror → huaweicloud，逐个尝试 |
+| 有限重试 | 每个镜像 3 次；全部失败才放弃 |
+| **断点续传** | 中断/重启后从已下载的字节继续，进度保留在 `~/.dsh/electron/.download/` |
+| 停滞超时 | 连续 60 秒无数据主动放弃本次尝试，不会挂死 |
+
+**万一全部失败**，DSH 日志里会打印可照抄的手动安装指引（手动下载 URL、解压目录、
+指定已有 Electron、关闭桌面窗四种方式），重启 DSH 后自动续传。
 
 | 想做的事 | 怎么做 |
 | --- | --- |
-| 手动触发/重试下载 | `node scripts/ensure-electron.mjs` |
+| 手动触发/重试下载（自动续传） | `node scripts/ensure-electron.mjs` |
 | 复用已有的 Electron | `DSH_COOK_PET_ELECTRON=<electron 可执行文件路径>` |
-| 国内镜像不好用 | `DSH_COOK_PET_ELECTRON_MIRROR=<镜像地址>` |
+| 换下载镜像（设置后只用它） | `DSH_COOK_PET_ELECTRON_MIRROR=<镜像地址>` |
 
 > 注意：删掉 `~/.dsh/electron` 后，她就不会出现了（插件本身仍在跑）。
 > 想彻底关掉桌宠：`DSH_COOK_PET_DESKTOP=0`，或直接卸载插件。
@@ -231,7 +243,7 @@ dsh-cook-pet/
 
 | 项 | 状态 |
 | --- | --- |
-| DSH | `0.2.1-rc.1` 实测通过；`0.2.0-rc.1` / `0.2.0-rc.2` 契约一致 |
+| DSH | `0.2.0-rc.1` / `0.2.0-rc.2` / `0.2.1-rc.1` / `0.2.1-rc.2` 实测通过（`engines.dsh: >=0.2.0`） |
 | 桌面窗 | Windows 实测通过（Electron 43，`transparent + alwaysOnTop`）；macOS/Linux 未实测 |
 | Node | ≥ 22.12 |
 

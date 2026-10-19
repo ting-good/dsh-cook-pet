@@ -97,14 +97,27 @@ The always-on-top window is rendered by a separate Electron process and needs an
 (the DSH host itself is plain Node and ships no Electron binary).
 
 **You don't have to do anything**: the first time the runtime is missing, the plugin downloads it
-**in the background** (~100 MB, once only, via the npmmirror mirror) and the desktop window appears
-when it's ready. DSH is fully usable during the download — she just isn't on screen yet.
+**in the background** (~140 MB, once only) and the desktop window appears when it's ready.
+DSH is fully usable during the download — she just isn't on screen yet.
+
+The download is built to survive bad networks:
+
+| Capability | Detail |
+| --- | --- |
+| Mirror fallback | npmmirror → registry.npmmirror → huaweicloud, tried in order |
+| Limited retries | 3 attempts per mirror before giving up |
+| **Resumable** | continues from the bytes already downloaded (kept in `~/.dsh/electron/.download/`) |
+| Stall timeout | aborts an attempt after 60 s without data, instead of hanging forever |
+
+**If every attempt fails**, the DSH log prints copy-paste manual instructions (download URL,
+extract directory, pointing at an existing Electron, or disabling the desktop window) —
+and the next retry resumes automatically.
 
 | You want to | Do this |
 | --- | --- |
-| Trigger / retry the download manually | `node scripts/ensure-electron.mjs` |
+| Trigger / retry the download (auto-resumes) | `node scripts/ensure-electron.mjs` |
 | Reuse an existing Electron | `DSH_COOK_PET_ELECTRON=<path to electron executable>` |
-| Different mirror | `DSH_COOK_PET_ELECTRON_MIRROR=<mirror url>` |
+| Different mirror (used exclusively) | `DSH_COOK_PET_ELECTRON_MIRROR=<mirror url>` |
 
 > Note: deleting `~/.dsh/electron` makes her disappear (the plugin itself keeps running).
 > To turn the pet off completely: `DSH_COOK_PET_DESKTOP=0`, or uninstall the plugin.
@@ -237,7 +250,7 @@ dsh-cook-pet/
 
 | Item | Status |
 | --- | --- |
-| DSH | tested on `0.2.1-rc.1`; `0.2.0-rc.1` / `0.2.0-rc.2` share the same contract |
+| DSH | tested on `0.2.0-rc.1` / `0.2.0-rc.2` / `0.2.1-rc.1` / `0.2.1-rc.2` (`engines.dsh: >=0.2.0`) |
 | Desktop window | tested on Windows (Electron 43, `transparent + alwaysOnTop`); macOS/Linux untested |
 | Node | ≥ 22.12 |
 
