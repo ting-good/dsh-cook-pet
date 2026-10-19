@@ -2,6 +2,9 @@
 
 **中文** | [English](README.en.md)
 
+[![npm](https://img.shields.io/npm/v/dsh-cook-pet?color=red&label=npm)](https://www.npmjs.com/package/dsh-cook-pet)
+[![GitHub](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 > 一只住在 [DeepSeek Harness](https://www.deepseek.com/harness/) 里的小厨娘桌宠。
 > 她叫**照照** —— 没活干时握着锅铲站着晃；你派活给她就**颠锅炒菜**；一轮任务做完，
 > 她**端着一盘热菜**来报喜；**需要你批准或回话时，她托着腮歪头等你**；戳一下还会 wink 或转个圈。
@@ -96,6 +99,14 @@ dsh plugin --profile desktop add github:ting-good/dsh-cook-pet
 #   D:\Deepseek\resources\runtime\cli\bin\dsh.cmd
 dsh plugin --profile desktop add file:/绝对路径/dsh-cook-pet
 ```
+
+### 🛠️ 装不上时：镜像加速与排查
+
+| 现象 | 原因 | 解法 |
+| --- | --- | --- |
+| `git ls-remote failed` | github 方式需要 git，机器上没有 | 改用 npm 方式（推荐） |
+| npm 方式很慢 | 直连 `registry.npmjs.org` 慢 | 在 `~/.npmrc` 写 `registry=https://registry.npmmirror.com`（DSH 自带 pnpm 会自动读取） |
+| `dsh` 不是命令 | 打包版 CLI 不在 PATH | 用全路径：`<安装目录>\resources\runtime\cli\bin\dsh.cmd` |
 
 ### 🖥️ 桌面置顶窗：Electron 会自动准备好（可选）
 

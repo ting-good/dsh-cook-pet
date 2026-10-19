@@ -2,6 +2,9 @@
 
 [中文](README.md) | **English**
 
+[![npm](https://img.shields.io/npm/v/dsh-cook-pet?color=red&label=npm)](https://www.npmjs.com/package/dsh-cook-pet)
+[![GitHub](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 > A little chef-girl desktop pet living inside [DeepSeek Harness](https://www.deepseek.com/harness/).
 > Her name is **Zhaozhao** (照照). When idle she stands around holding a spatula; give her work and she
 > **tosses a wok**; when a turn finishes she **brings you a plate of food**; when she
@@ -101,6 +104,14 @@ dsh plugin --profile desktop add github:ting-good/dsh-cook-pet
 #   D:\Deepseek\resources\runtime\cli\bin\dsh.cmd
 dsh plugin --profile desktop add file:/absolute/path/to/dsh-cook-pet
 ```
+
+### 🛠️ Troubleshooting: mirrors and common errors
+
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| `git ls-remote failed` | the GitHub route needs git, which isn't installed | use the npm route (recommended) |
+| npm route is slow | direct `registry.npmjs.org` access is slow | add `registry=https://registry.npmmirror.com` to `~/.npmrc` (DSH's bundled pnpm picks it up) |
+| `dsh` is not a command | the packaged CLI isn't on PATH | use the full path: `<install dir>\resources\runtime\cli\bin\dsh.cmd` |
 
 ### 🖥️ The floating desktop window: Electron prepares itself (optional)
 
