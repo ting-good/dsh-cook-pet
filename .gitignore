@@ -37,5 +37,8 @@ docs/previews/
 docs/verify/
 acl-reports/
 
+# ---- awesome-dsh-plugin 投稿草稿（只用于往别处贴内容，不属于本项目）----
+.submission/
+
 # ---- 内部取证草稿：写得太乱，暂不公开发布 ----
 docs/契约-等待确认.md
